@@ -2,11 +2,12 @@
   width: min(90%, 75rem);
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  background-color: lightgray;
-  border-bottom: 1px solid #aaa;
+  background-color: purple;
+  border-bottom: 1px solid white;
 }
 
 .p {
   margin: 1rem;
   margin-right: 4rem;
+  color: white;
 }
