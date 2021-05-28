@@ -1,0 +1,10 @@
+.div {
+  display: flex;
+  background-color: lightgray;
+  border-bottom: 1px solid #aaa;
+}
+
+.p {
+  margin: 1rem;
+  margin-right: 4rem;
+}

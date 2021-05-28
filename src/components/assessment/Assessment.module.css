@@ -1,0 +1,21 @@
+.div {
+ 
+  width: min(90%,75rem);
+  display: grid;
+  grid-template-columns: 4% 4% 4% 8% 72%;
+}
+
+.p {
+  margin: auto;
+  padding: auto;
+}
+
+.h3 {
+  margin: auto;
+  padding: auto;
+}
+
+.a{
+  margin: auto;
+  padding: auto;
+}
