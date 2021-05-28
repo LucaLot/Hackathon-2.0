@@ -1,5 +1,7 @@
 .div {
-  display: flex;
+  width: min(90%, 75rem);
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
   background-color: lightgray;
   border-bottom: 1px solid #aaa;
 }

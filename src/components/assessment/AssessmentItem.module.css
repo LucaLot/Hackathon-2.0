@@ -1,11 +1,6 @@
-.wrap {
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .div {
-  margin-top: 2rem;
-  width: min(90%,75rem);
+  
+  width: min(90%, 75rem);
   display: grid;
   grid-template-columns: 4% 4% 4% 8% 72%;
 }
@@ -20,7 +15,7 @@
   text-align: left;
 }
 
-.a{
+.a {
   margin: auto;
   padding: auto;
 }
