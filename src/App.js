@@ -4,14 +4,16 @@ import Introduction from "./components/introduction/Introduction";
 import Layout from "./components/layout/Layout";
 import Legend from "./components/legend/Legend";
 import AssessmentList from "./components/assessment/AssessmentList";
+import RadarChart from "./components/radarChart/RadarChart";
 
 function App() {
   return (
-      <Layout>
-        <Introduction />
-        <Legend />
-        <AssessmentList />
-      </Layout>
+    <Layout>
+      <RadarChart physical={10} psychological={64} social={87} spiritual={0} professional={55} />
+      <Introduction />
+      <Legend />
+      <AssessmentList />
+    </Layout>
   );
 }
 
