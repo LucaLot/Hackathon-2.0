@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { showActions } from "./store/index";
 
@@ -60,11 +58,7 @@ function App() {
       dispatch(showActions.socialHide());
     }
 
-<<<<<<< HEAD
     if (spiritual === true) {
-=======
-    if (assessmentCtx.spiritualShow === true) {
->>>>>>> graem
       setButtonText("Submit");
       dispatch(showActions.professionalShow());
       dispatch(showActions.spiritualHide());
