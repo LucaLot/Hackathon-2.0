@@ -1,0 +1,29 @@
+.container {
+    width: 100%;
+    background-color: #09041a;
+    color: whitesmoke;
+    font-smooth: always;
+    
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 275px;
+    gap: 20px;
+    max-width: calc(60rem - 30px);
+    margin:auto;
+    padding: 30px;
+    text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.subtitle {
+    font-weight: normal;
+    font-size: 1.3rem;
+}
