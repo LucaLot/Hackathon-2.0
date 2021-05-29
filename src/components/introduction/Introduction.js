@@ -15,7 +15,7 @@ const Introduction = () => {
           In this assessment you will think about frequently, or how well you
           are performing different self-care activits. The goal of this
           assessment is to help you learn about your self-care needs by spotting
-          patterns and recgnizing areas of your life that need more attention.{" "}
+          patterns and recognizing areas of your life that need more attention.{" "}
         </p>
         <p className={classes.p}>
           There are no right or wrong answers on this assessment. There may be
