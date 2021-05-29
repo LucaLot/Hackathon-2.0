@@ -5,17 +5,17 @@ import Layout from "./components/layout/Layout";
 import Legend from "./components/legend/Legend";
 import AssessmentList from "./components/assessment/AssessmentList";
 import AssessmentContext from "./store/assessment-context";
-import RadarChart from "react-chartjs-2";
+import RadarChart from "./components/radarChart/RadarChart";
 
 function App() {
   const assessmentCtx = useContext(AssessmentContext);
 
   const scores = {
-    physical: assessmentCtx.physicalScore / 30,
-    psychological: assessmentCtx.psychologicalScore / 33,
-    social: assessmentCtx.socialScore / 30,
-    spiritual: assessmentCtx.spiritualScore / 27,
-    professional: assessmentCtx.professionalScore / 30,
+    physical: 100 * assessmentCtx.physicalScore / 30,
+    psychological: 100 * assessmentCtx.psychologicalScore / 33,
+    social: 100 * assessmentCtx.socialScore / 30,
+    spiritual: 100 * assessmentCtx.spiritualScore / 27,
+    professional: 100 * assessmentCtx.professionalScore / 30,
   };
 
 
@@ -24,7 +24,12 @@ function App() {
       <Introduction />
       <Legend />
       <AssessmentList />
-      <RadarChart props={scores} />
+      <RadarChart
+        physical={scores.physical}
+        psychological={scores.psychological}
+        social={scores.social}
+        spiritual={scores.spiritual}
+        professional={scores.professional} />
       <button>Submit</button>
     </Layout>
   );
