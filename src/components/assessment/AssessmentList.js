@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import AssessmentContext from "../../store/assessment-context";
 import Assessment from "./Assessment";
 
 import classes from './AssessmentList.module.css';
@@ -105,17 +106,20 @@ const professionalList = [
   ];
 
 const AssessmentList = () => {
+
+  const assessmentCtx = useContext(AssessmentContext);
+
   return (
     <React.Fragment>
       <div className={classes.div}>
-      <Assessment title="Physical Self-Care" list={physicalList} />
-      <Assessment
+      {assessmentCtx.physicalShow && <Assessment title="Physical Self-Care" list={physicalList} />}
+      {assessmentCtx.psychologicalShow && <Assessment
         title="Psychological / Emotional Self-Care"
         list={psychologicalList}
-      />
-      <Assessment title="Social Self-Care" list={socialList} />
-      <Assessment title="Spiritual Self-Care" list={spiritualList} />
-      <Assessment title="Professional Self-Care" list={professionalList} />
+      />}
+      {assessmentCtx.socialShow && <Assessment title="Social Self-Care" list={socialList} />}
+      {assessmentCtx.spiritualShow && <Assessment title="Spiritual Self-Care" list={spiritualList} />}
+      {assessmentCtx.professionalShow && <Assessment title="Professional Self-Care" list={professionalList} />}
       </div>
     </React.Fragment>
   );
