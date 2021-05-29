@@ -8,7 +8,7 @@ const AssessmentItemList = (props) => {
     <React.Fragment>
       <div className={classes.div}>
         {props.list.map((question) => {
-          return <AssessmentItem key={question.key} text={question.value}/>
+          return <AssessmentItem id={question.key} key={question.key} text={question.value}/>
         })}
       </div>
     </React.Fragment>
