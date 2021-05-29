@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { showActions } from "./store/index";
 
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
 import "./App.css";
 import Introduction from "./components/introduction/Introduction";
 import Layout from "./components/layout/Layout";
@@ -35,6 +35,7 @@ function App() {
   );
 
   const scores = {
+    region: "Region Chan",
     physical: (100 * physicalCounter) / 30,
     psychological: (100 * psychologicalCounter) / 33,
     social: (100 * socialCounter) / 30,
@@ -42,7 +43,7 @@ function App() {
     professional: (100 * professionalCounter) / 30,
   };
 
-  const onClickHandler = () => {
+  async function onClickHandler() {
     if (physical === true) {
       dispatch(showActions.psychologicalShow());
       dispatch(showActions.physicalHide());
@@ -70,10 +71,38 @@ function App() {
       // console.log("social " + socialCounter);
       // console.log("spiritual " + spiritualCounter);
       // console.log("professional " + professionalCounter);
+
+      let value = "";
+
+      await fetch(
+        "https://geolocation-db.com/json/f9902210-97f0-11eb-a459-b997d30983f1"
+      )
+        .then((response) => response.json())
+        .then((data) => value = data.country_name);
+
+      const scores = {
+        region: value,
+        physical: (100 * physicalCounter) / 30,
+        psychological: (100 * psychologicalCounter) / 33,
+        social: (100 * socialCounter) / 30,
+        spiritual: (100 * spiritualCounter) / 27,
+        professional: (100 * professionalCounter) / 30,
+      };
+
+      const response = await fetch("http://localhost:3001/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(scores),
+      }).catch((error) => {
+        console.log(error);
+      });
+
       setShowChart(true);
       dispatch(showActions.professionalHide());
     }
-  };
+  }
 
   return (
     <Fragment>
@@ -82,7 +111,11 @@ function App() {
         <Introduction />
         <Legend />
         <AssessmentList />
-        {!showChart && <button onClick={onClickHandler} className="btn"><div className="btn-ctr-skew">{buttonText}</div></button>}
+        {!showChart && (
+          <button onClick={onClickHandler} className="btn">
+            <div className="btn-ctr-skew">{buttonText}</div>
+          </button>
+        )}
         {showChart && (
           <RadarChart
             physical={scores.physical}
@@ -94,7 +127,6 @@ function App() {
         )}
       </Layout>
     </Fragment>
-
   );
 }
 
