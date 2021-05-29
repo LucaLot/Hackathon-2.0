@@ -31,6 +31,23 @@ class RadarChart extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        // /regional-averages?region= /global-averages
+        let test;
+        fetch('http://localhost:3001/global-averages')
+            .then(function (response) {
+                if (!response.ok) throw Error(response.statusText);
+                return response.json();
+            })
+            .then(function (json) {
+                test = json;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        console.log(test);
+    }
+
 
     render() {
         return (<Radar data={this.getData()} options={options} />);
