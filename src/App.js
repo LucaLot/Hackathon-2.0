@@ -3,12 +3,14 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { showActions } from "./store/index";
 
+import { Fragment, useContext, useState } from "react";
 import "./App.css";
 import Introduction from "./components/introduction/Introduction";
 import Layout from "./components/layout/Layout";
 import Legend from "./components/legend/Legend";
 import AssessmentList from "./components/assessment/AssessmentList";
 import RadarChart from "./components/radarChart/RadarChart";
+import Header from "./components/header/Header";
 
 function App() {
   const [showChart, setShowChart] = useState(false);
@@ -58,7 +60,11 @@ function App() {
       dispatch(showActions.socialHide());
     }
 
+<<<<<<< HEAD
     if (spiritual === true) {
+=======
+    if (assessmentCtx.spiritualShow === true) {
+>>>>>>> graem
       setButtonText("Submit");
       dispatch(showActions.professionalShow());
       dispatch(showActions.spiritualHide());
@@ -76,21 +82,25 @@ function App() {
   };
 
   return (
-    <Layout>
-      <Introduction />
-      <Legend />
-      <AssessmentList />
-      {!showChart && <button onClick={onClickHandler}>{buttonText}</button>}
-      {showChart && (
-        <RadarChart
-          physical={scores.physical}
-          psychological={scores.psychological}
-          social={scores.social}
-          spiritual={scores.spiritual}
-          professional={scores.professional}
-        />
-      )}
-    </Layout>
+    <Fragment>
+      <Header />
+      <Layout>
+        <Introduction />
+        <Legend />
+        <AssessmentList />
+        {!showChart && <button onClick={onClickHandler}>{buttonText}</button>}
+        {showChart && (
+          <RadarChart
+            physical={scores.physical}
+            psychological={scores.psychological}
+            social={scores.social}
+            spiritual={scores.spiritual}
+            professional={scores.professional}
+          />
+        )}
+      </Layout>
+    </Fragment>
+
   );
 }
 

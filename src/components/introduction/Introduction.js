@@ -6,14 +6,13 @@ const Introduction = () => {
   return (
     <React.Fragment>
       <div className={classes.wrap}>
-        <h1>Self-Care Assessment</h1>
         <p className={classes.p}>
           Self-care activites are the things you do to maintain good health and
           improve well-being.
         </p>
         <p className={classes.p}>
           In this assessment you will think about frequently, or how well you
-          are performing different self-care activits. The goal of this
+          are performing different self-care activities. The goal of this
           assessment is to help you learn about your self-care needs by spotting
           patterns and recognizing areas of your life that need more attention.{" "}
         </p>
