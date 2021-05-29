@@ -37,3 +37,31 @@
     transform: rotate(360deg);
   }
 }
+
+.btn-ctr-skew {
+  transform: skew(15deg);
+  transition-duration: 200ms;
+}
+
+.btn {
+  transform: skew(-15deg);
+  background-color: #09041a;
+  color: whitesmoke;
+  border: none;
+  padding: 8px 35px;
+  margin: 30px auto;
+  font-size: 1.2rem;
+  transition-duration: 200ms;
+}
+
+.btn:hover {
+  cursor: pointer;
+  transform: skew(15deg);
+  background-color: #483e69;
+  transition-duration: 200ms;
+}
+
+.btn:hover > .btn-ctr-skew {
+  transform: skew(-15deg);
+  transition-duration: 200ms;
+}

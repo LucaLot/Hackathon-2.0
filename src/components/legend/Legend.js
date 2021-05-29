@@ -3,7 +3,8 @@ import LegendItemList from "./LegendItemList";
 
 const Legend = () => {
   return <React.Fragment>
-      <LegendItemList />
+    <h3>Legend</h3>
+    <LegendItemList />
   </React.Fragment>;
 };
 

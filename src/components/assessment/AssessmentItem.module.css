@@ -19,3 +19,8 @@
   margin: auto;
   padding: auto;
 }
+
+
+.div > input:is(.a, .p) {
+  transform: scale(1.6, 1.6);
+}

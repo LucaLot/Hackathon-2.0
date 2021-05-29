@@ -82,7 +82,7 @@ function App() {
         <Introduction />
         <Legend />
         <AssessmentList />
-        {!showChart && <button onClick={onClickHandler}>{buttonText}</button>}
+        {!showChart && <button onClick={onClickHandler} className="btn"><div className="btn-ctr-skew">{buttonText}</div></button>}
         {showChart && (
           <RadarChart
             physical={scores.physical}
