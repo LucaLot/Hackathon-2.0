@@ -4,11 +4,28 @@ import sqlite3
 app = Flask(__name__)
 
 DATABASE = "database.db"
+SUBMISSIONS = "submissions"
 
-# PREFIXES = "section_"
-# SECTION_NAMES = ["A", "B", "C", "D", "E"]
-# SCORE_SUFFIX = "_score"
-# AVG_SUFFIX = "_avg"
+REGION = "region"
+PREFIX = ""
+SECTION_NAMES = [
+    "physical",
+    "psychological",
+    "social",
+    "spiritual",
+    "professional"
+]
+SCORE_SUFFIX = ""
+AVG_SUFFIX = "_avg"
+
+# backslash not allowed in f-string workaround
+COMMA_NEWLINE = ",\n"
+
+def sc_name(s):
+    return PREFIX + s + SCORE_SUFFIX
+
+def av_name(s):
+    return PREFIX + s + AVG_SUFFIX
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -22,23 +39,18 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-def convert_in(json_):
-    return json_
-
-def convert_out(json_):
-    return json_
-
 @app.before_first_request
 def initialize_db():
     db = get_db()
-    db.cursor().execute("""
-        CREATE TABLE IF NOT EXISTS submissions (
-            region TEXT,
-            section_A_score INTEGER,
-            section_B_score INTEGER,
-            section_C_score INTEGER,
-            section_D_score INTEGER,
-            section_E_score INTEGER
+    db.cursor().execute(f"""
+        CREATE TABLE IF NOT EXISTS {SUBMISSIONS} (
+            {REGION} TEXT,
+            {
+                COMMA_NEWLINE.join(
+                    sc_name(name) + " INTEGER"
+                    for name in SECTION_NAMES
+                )
+            }
         );
     """)
     db.commit()
@@ -50,16 +62,18 @@ def index():
 @app.route("/submit", methods=["POST"])
 def submit():
     json_ = request.get_json()
-    json_ = convert_in(json_)
+    if json_ is None:
+        return "json not provided", 400
     db = get_db()
     db.cursor().execute(f"""
-        INSERT INTO submissions VALUES (
-            '{json_["region"]}',
-            {json_['section_A_score']},
-            {json_['section_B_score']},
-            {json_['section_C_score']},
-            {json_['section_D_score']},
-            {json_['section_E_score']}
+        INSERT INTO {SUBMISSIONS} VALUES (
+            '{json_[REGION]}',
+            {
+                COMMA_NEWLINE.join(
+                    str(json_[sc_name(name)])
+                    for name in SECTION_NAMES
+                )
+            }
         );
     """)
     db.commit()
@@ -71,23 +85,23 @@ def global_averages():
     cur = db.cursor()
     cur.execute(f"""
         SELECT
-            AVG(section_A_score),
-            AVG(section_B_score),
-            AVG(section_C_score),
-            AVG(section_D_score),
-            AVG(section_E_score)
-        FROM submissions;
+            {
+                COMMA_NEWLINE.join(
+                    "AVG(" + sc_name(name) + ")"
+                    for name in SECTION_NAMES
+                )
+            }
+        FROM {SUBMISSIONS};
     """)
     data = cur.fetchall()[0]
     db.commit()
     data = {
-        f"section_{sec}_avg": avg
+        av_name(sec): avg
         for sec, avg in zip(
-            ["A", "B", "C", "D", "E"],
+            SECTION_NAMES,
             data
         )
     }
-    data = convert_out(data)
     return jsonify(data)
 
 @app.route("/regional-averages", methods=["GET"])
@@ -99,53 +113,52 @@ def regional_averages():
     cur = db.cursor()
     cur.execute(f"""
         SELECT
-            AVG(section_A_score),
-            AVG(section_B_score),
-            AVG(section_C_score),
-            AVG(section_D_score),
-            AVG(section_E_score)
-        FROM submissions
-        WHERE region='{region}';
+            {
+                COMMA_NEWLINE.join(
+                    "AVG(" + sc_name(name) + ")"
+                    for name in SECTION_NAMES
+                )
+            }
+        FROM {SUBMISSIONS}
+        WHERE {REGION}='{region}';
     """)
     data = cur.fetchall()[0]
     db.commit()
     data = {
-        f"section_{sec}_avg": avg
+        av_name(sec): avg
         for sec, avg in zip(
-            ["A", "B", "C", "D", "E"],
+            SECTION_NAMES,
             data
         )
     }
-    data = convert_out(data)
     return jsonify(data)
 
 @app.route("/all-submissions", methods=["GET"])
 def all_submissions():
     db = get_db()
     cur = db.cursor()
-    cur.execute("""
+    cur.execute(f"""
         SELECT
-            region,
-            section_A_score,
-            section_B_score,
-            section_C_score,
-            section_D_score,
-            section_E_score
-        FROM submissions;
+            {REGION},
+            {
+                COMMA_NEWLINE.join(
+                    sc_name(name)
+                    for name in SECTION_NAMES
+                )
+            }
+        FROM {SUBMISSIONS};
     """)
     data = [
-        convert_out(
-            {
-                "region": submission[0],
-                **{
-                    f"section_{sec}_score": score
-                    for sec, score in zip(
-                        ["A", "B", "C", "D", "E"],
-                        submission[1:]
-                    )
-                }
+        {
+            REGION: submission[0],
+            **{
+                sc_name(sec): score
+                for sec, score in zip(
+                    SECTION_NAMES,
+                    submission[1:]
+                )
             }
-        )
+        }
         for submission in cur
     ]
     db.commit()
