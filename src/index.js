@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AssessmentContextProvider } from "./store/assessment-context";
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 ReactDOM.render(
-  <AssessmentContextProvider>
-    <App />
-  </AssessmentContextProvider>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
   document.getElementById("root")
 );
 

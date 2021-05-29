@@ -1,53 +1,78 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { showActions } from "./store/index";
+
 import "./App.css";
 import Introduction from "./components/introduction/Introduction";
 import Layout from "./components/layout/Layout";
 import Legend from "./components/legend/Legend";
 import AssessmentList from "./components/assessment/AssessmentList";
-import AssessmentContext from "./store/assessment-context";
 import RadarChart from "./components/radarChart/RadarChart";
 
 function App() {
   const [showChart, setShowChart] = useState(false);
   const [buttonText, setButtonText] = useState("Next");
 
-  const assessmentCtx = useContext(AssessmentContext);
+  const dispatch = useDispatch();
+
+  const physical = useSelector((state) => state.show.physical);
+  const psychological = useSelector((state) => state.show.psychological);
+  const social = useSelector((state) => state.show.social);
+  const spiritual = useSelector((state) => state.show.spiritual);
+  const professional = useSelector((state) => state.show.professional);
+
+  const physicalCounter = useSelector((state) => state.counter.physicalCounter);
+  const psychologicalCounter = useSelector(
+    (state) => state.counter.psychologicalCounter
+  );
+  const socialCounter = useSelector((state) => state.counter.socialCounter);
+  const spiritualCounter = useSelector(
+    (state) => state.counter.spiritualCounter
+  );
+  const professionalCounter = useSelector(
+    (state) => state.counter.professionalCounter
+  );
 
   const scores = {
-    physical: (100 * assessmentCtx.physicalScore) / 30,
-    psychological: (100 * assessmentCtx.psychologicalScore) / 33,
-    social: (100 * assessmentCtx.socialScore) / 30,
-    spiritual: (100 * assessmentCtx.spiritualScore) / 27,
-    professional: (100 * assessmentCtx.professionalScore) / 30,
+    physical: (100 * physicalCounter) / 30,
+    psychological: (100 * psychologicalCounter) / 33,
+    social: (100 * socialCounter) / 30,
+    spiritual: (100 * spiritualCounter) / 27,
+    professional: (100 * professionalCounter) / 30,
   };
 
   const onClickHandler = () => {
-    if (assessmentCtx.physicalShow === true) {
-      assessmentCtx.setPsychologicalShow(true);
-      assessmentCtx.setPhysicalShow(false);
+    if (physical === true) {
+      dispatch(showActions.psychologicalShow());
+      dispatch(showActions.physicalHide());
     }
 
-    if (assessmentCtx.psychologicalShow === true) {
-      assessmentCtx.setSocialShow(true);
-      assessmentCtx.setPsychologicalShow(false);
+    if (psychological === true) {
+      dispatch(showActions.socialShow());
+      dispatch(showActions.psychologicalHide());
     }
 
-    if (assessmentCtx.socialShow === true) {
-      assessmentCtx.setSpiritualShow(true);
-      assessmentCtx.setSocialShow(false);
+    if (social === true) {
+      dispatch(showActions.spiritualShow());
+      dispatch(showActions.socialHide());
     }
-    
-    if (assessmentCtx.spiritualShow === true) {
+
+    if (spiritual === true) {
       setButtonText("Submit");
-      assessmentCtx.setProfessionalShow(true);
-      assessmentCtx.setSpiritualShow(false);
+      dispatch(showActions.professionalShow());
+      dispatch(showActions.spiritualHide());
     }
 
-    if (assessmentCtx.professionalShow === true) {
+    if (professional === true) {
+      // console.log("physical " + physicalCounter);
+      // console.log("psychological " + psychologicalCounter);
+      // console.log("social " + socialCounter);
+      // console.log("spiritual " + spiritualCounter);
+      // console.log("professional " + professionalCounter);
       setShowChart(true);
-      assessmentCtx.setProfessionalShow(false);
+      dispatch(showActions.professionalHide());
     }
-
   };
 
   return (

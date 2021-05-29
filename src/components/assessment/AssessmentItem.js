@@ -1,104 +1,87 @@
-import React, { useState, useContext } from "react";
-import AssessmentContext from "../../store/assessment-context";
+import React, { useState } from "react";
+
+import { useDispatch } from "react-redux";
+import { counterActions } from "../../store/index";
 
 import classes from "./AssessmentItem.module.css";
 
 const AssessmentItem = (props) => {
-  const assessmentCtx = useContext(AssessmentContext);
+
+  const dispatch = useDispatch();
 
   const [radio, setRadio] = useState("");
 
   const onChangeOneHandler = (event) => {
     setRadio(event.target.value);
+
     if (props.id.includes("physical")) {
-      let value = assessmentCtx.physicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPhysicalScore(value);
+      dispatch(counterActions.physicalIncrement());
     }
 
     if (props.id.includes("psychological")) {
-      let value = assessmentCtx.psychologicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPsychologicalScore(value);
+      dispatch(counterActions.psychologicalIncrement());
     }
 
     if (props.id.includes("social")) {
-      let value = assessmentCtx.socialScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSocialScore(value);
+      dispatch(counterActions.socialIncrement());
     }
 
     if (props.id.includes("spiritual")) {
-      let value = assessmentCtx.spiritualScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSpiritualScore(value);
+      dispatch(counterActions.spiritualIncrement());
     }
 
     if (props.id.includes("professional")) {
-      let value = assessmentCtx.professionalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setProfessionalScore(value);
+      dispatch(counterActions.professionalIncrement());
     }
   };
 
   const onChangeTwoHandler = (event) => {
     setRadio(event.target.value);
     if (props.id.includes("physical")) {
-      let value = assessmentCtx.physicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPhysicalScore(value);
+      dispatch(counterActions.physicalIncrease(parseInt(event.target.value)));
     }
     if (props.id.includes("psychological")) {
-      let value = assessmentCtx.psychologicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPsychologicalScore(value);
+      dispatch(
+        counterActions.psychologicalIncrease(parseInt(event.target.value))
+      );
     }
 
     if (props.id.includes("social")) {
-      let value = assessmentCtx.socialScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSocialScore(value);
+      dispatch(counterActions.socialIncrease(parseInt(event.target.value)));
     }
     if (props.id.includes("spiritual")) {
-      let value = assessmentCtx.spiritualScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSpiritualScore(value);
+      dispatch(counterActions.spiritualIncrease(parseInt(event.target.value)));
     }
 
     if (props.id.includes("professional")) {
-      let value = assessmentCtx.professionalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setProfessionalScore(value);
+      dispatch(
+        counterActions.professionalIncrease(parseInt(event.target.value))
+      );
     }
   };
 
   const onChangeThreeHandler = (event) => {
     setRadio(event.target.value);
     if (props.id.includes("physical")) {
-      let value = assessmentCtx.physicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPhysicalScore(value);
+      dispatch(counterActions.physicalIncrease(parseInt(event.target.value)));
     }
     if (props.id.includes("psychological")) {
-      let value = assessmentCtx.psychologicalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setPsychologicalScore(value);
+      dispatch(
+        counterActions.psychologicalIncrease(parseInt(event.target.value))
+      );
     }
 
     if (props.id.includes("social")) {
-      let value = assessmentCtx.socialScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSocialScore(value);
+      dispatch(counterActions.socialIncrease(parseInt(event.target.value)));
     }
     if (props.id.includes("spiritual")) {
-      let value = assessmentCtx.spiritualScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setSpiritualScore(value);
+      dispatch(counterActions.spiritualIncrease(parseInt(event.target.value)));
     }
+
     if (props.id.includes("professional")) {
-      let value = assessmentCtx.professionalScore;
-      value = value + parseInt(event.target.value);
-      assessmentCtx.setProfessionalScore(value);
+      dispatch(
+        counterActions.professionalIncrease(parseInt(event.target.value))
+      );
     }
   };
 
