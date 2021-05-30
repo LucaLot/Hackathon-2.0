@@ -1,16 +1,31 @@
 import classes from './RadarChart.module.css';
 import React, { Component } from 'react';
-import { Radar } from 'react-chartjs-2';
+import { Chart, Radar } from 'react-chartjs-2';
 
 const options = {
+    scale: {
+        pointLabels: {
+            fontSize: 30
+        },
+    },
     scales: {
+
         r: {
-            title: {
+            pointLabels: {
+                color: 'black',
                 font: {
-                    scale: 200
+                    size: 14
                 }
+
+            },
+            grid: {
+                color: 'grey'
+            },
+            title: {
+                size: 100
             },
             angleLines: {
+                color: 'grey',
                 display: true
             },
             suggestedMin: 0,
@@ -33,10 +48,9 @@ class RadarChart extends Component {
 
     async componentDidMount() {
 
-
-        let region = "Region name"; // get users region
         let global;
         let regional;
+        let region;
 
         let r1 = fetch("https://geolocation-db.com/json/f9902210-97f0-11eb-a459-b997d30983f1")
             .then(function (response) {
