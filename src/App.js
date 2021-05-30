@@ -9,6 +9,7 @@ import Legend from "./components/legend/Legend";
 import AssessmentList from "./components/assessment/AssessmentList";
 import RadarChart from "./components/radarChart/RadarChart";
 import Header from "./components/header/Header";
+import classes from "./App.css";
 
 function App() {
   const [showChart, setShowChart] = useState(false);

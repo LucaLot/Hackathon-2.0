@@ -19,7 +19,7 @@ const Introduction = () => {
         <p className={classes.p}>
           There are no right or wrong answers on this assessment. There may be
           activites that you have no interest in, and other activities may not
-          be included. This list is not comprehensive, but serves as a staring
+          be included. This list is not comprehensive, but serves as a starting
           point for thinking about your self-care needs.{" "}
         </p>
       </div>
