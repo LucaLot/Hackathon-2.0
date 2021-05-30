@@ -56,7 +56,6 @@
 
 .btn:hover {
   cursor: pointer;
-  transform: skew(15deg);
   background-color: #483e69;
   transition-duration: 200ms;
 }

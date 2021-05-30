@@ -1,7 +1,7 @@
 .div {
-  width: min(90%, 75rem);
+  width: 100%;
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 22% 44% 44%;
   background-color: purple;
   border-bottom: 1px solid white;
 }

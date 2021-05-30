@@ -1,16 +1,31 @@
 import classes from './RadarChart.module.css';
 import React, { Component } from 'react';
-import { Radar } from 'react-chartjs-2';
+import { Chart, Radar } from 'react-chartjs-2';
 
 const options = {
+    scale: {
+        pointLabels: {
+            fontSize: 30
+        },
+    },
     scales: {
+
         r: {
-            title: {
+            pointLabels: {
+                color: 'black',
                 font: {
-                    scale: 200
+                    size: 14
                 }
+
+            },
+            grid: {
+                color: 'grey'
+            },
+            title: {
+                size: 100
             },
             angleLines: {
+                color: 'grey',
                 display: true
             },
             suggestedMin: 0,
@@ -33,36 +48,50 @@ class RadarChart extends Component {
 
     async componentDidMount() {
 
-        let region = "Region name"; // get users region
         let global;
         let regional;
+        let region;
 
-        let r1 = fetch('http://localhost:3001/global-averages')
+        let r1 = fetch("https://geolocation-db.com/json/f9902210-97f0-11eb-a459-b997d30983f1")
             .then(function (response) {
                 if (!response.ok) throw Error(response.statusText);
                 return response.json();
             })
-            .then(function (json) {
-                global = json;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-        let r2 = fetch(`http://localhost:3001/regional-averages?region=${region}`)
-            .then(function (response) {
-                if (!response.ok) throw Error(response.statusText);
-                return response.json();
-            })
-            .then(function (json) {
-                regional = json;
+            .then(function (data) {
+                region = data.country_name;
             })
             .catch(function (error) {
                 console.log(error);
             });
 
         await (r1);
+
+        let r2 = fetch('http://localhost:3001/global-averages')
+            .then(function (response) {
+                if (!response.ok) throw Error(response.statusText);
+                return response.json();
+            })
+            .then(function (data) {
+                global = data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        let r3 = fetch(`http://localhost:3001/regional-averages?region=${region}`)
+            .then(function (response) {
+                if (!response.ok) throw Error(response.statusText);
+                return response.json();
+            })
+            .then(function (data) {
+                regional = data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         await (r2);
+        await (r3);
 
         this.setState({ global, regional });
     }
