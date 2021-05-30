@@ -9,3 +9,18 @@ We were inspired to try and help people find a quick and easy way to do a self a
 
 ### Technologies
 This project was built using React and Node.JS for visual and backend design
+
+### How to Deploy
+Step 0. Ensure you have Node and Python 3 installed
+
+Step 1. Clone the repo to your local machine ``git clone https://github.com/LucaLot/Hackathon-2.0.git <name>``
+
+Step 2. Navigate to the repo subdirectory "database" and execute ``install.bat`` or ``install.sh``. You may have to open the install file and change python to python3.
+
+Step 3. Execute ``run.bat`` or ``run.sh`` to ensure it works correctly.
+
+Step 4. Navigate back to the project root directory and install dependancies by executing ``npm install``
+
+Step 5. Make sure the database server (from the database folder) is running and open a new console. From the root directory execute the command ``npm start``
+
+Step 6. DONE. The browser should open to the application. If this doesn't happen automatically, open your web browser and navigate to ``localhost:3000``
